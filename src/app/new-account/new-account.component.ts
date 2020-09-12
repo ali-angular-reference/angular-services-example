@@ -11,12 +11,18 @@ import { AccountsService } from '../accounts.service';
 export class NewAccountComponent {
 
   // get an instance of the logging service (overrides the instance from app componnt)
-  constructor(private loggingService: LoggingService, private accountsService: AccountsService){}
+  constructor(private loggingService: LoggingService, private accountsService: AccountsService){
+    // receiving the event
+    this.accountsService.statusUpdated.subscribe(
+      (status:string)=>alert('new status: '+status)
+    );
+  }
 
   onCreateAccount(accountName: string, accountStatus: string) {
     // call the method in the accounts service
     this.accountsService.addAccount(accountName, accountStatus)
     // call the log status change method in the logging service
     // this.loggingService.logStatusChange(accountStatus);
+
   }
 }
